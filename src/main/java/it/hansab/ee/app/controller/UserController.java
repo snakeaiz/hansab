@@ -2,7 +2,7 @@ package it.hansab.ee.app.controller;
 
 import it.hansab.ee.app.model.User;
 import it.hansab.ee.app.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping("/users")
     public List<User> getAllCars(){
