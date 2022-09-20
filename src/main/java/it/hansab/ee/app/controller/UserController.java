@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User getCarById(@PathVariable Long id) throws Exception {
+    public User getUserById(@PathVariable Long id) throws Exception {
         return userService.findUserById(id);
     }
 
@@ -38,12 +38,12 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public User deleteById(@PathVariable Long id){
+    public User deleteUserById(@PathVariable Long id){
         return userService.delete(id);
     }
 
     @PutMapping(value = "/users/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User updateById(@PathVariable Long id, @RequestBody User user){
+    public User updateUserById(@PathVariable Long id, @RequestBody User user){
         return userService.update(id, user);
     }
 

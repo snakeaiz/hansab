@@ -1,7 +1,6 @@
 package it.hansab.ee.app.service;
 
 import it.hansab.ee.app.model.User;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

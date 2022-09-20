@@ -6,14 +6,16 @@ import it.hansab.ee.app.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,58 +30,69 @@ class UserServiceTest {
 
     List<Car> carsList = new ArrayList<>();
     List<User> userList = new ArrayList<>();
-    User u = new User();
+    User userActual = new User();
 
     @BeforeEach
     void setUp(){
 
-        u.setCars(carsList);
-        u.setName("Aslan");
-        u.setId(1L);
-        userRepository.save(u);
-        userList.add(u);
+        userActual.setCars(carsList);
+        userActual.setName("Aslan");
+        userActual.setId(1L);
+        userRepository.save(userActual);
+        userList.add(userActual);
     }
 
-    @DisplayName("Find All Users Test")
+    @DisplayName("JUnit test for retrieving all Users")
     @Test
-    void findAllUsersTest() {
+    void givenUserList_whenFindAll_thenUserList() {
         when(userRepository.findAll())
                 .thenReturn(userList);
 
-        assertEquals(u, userService.findAllUsers().get(0));
+        assertEquals(userActual, userService.findAllUsers().get(0));
 
         verify(userRepository, times(1))
                 .findAll();
     }
 
+    @DisplayName("JUnit test for retrieving User by Id")
     @Test
     void findUserByIdTest() throws Exception {
-        when(userRepository.findById(u.getId()))
-                .thenReturn(java.util.Optional.ofNullable(u));
+        when(userRepository.findById(userActual.getId()))
+                .thenReturn(java.util.Optional.ofNullable(userActual));
 
-        assertEquals(u, userService.findUserById(u.getId()));
-        assertEquals(1L, u.getId());
-        verify(userRepository, times(1)).findById(u.getId());
+        assertEquals(userActual, userService.findUserById(userActual.getId()));
+        assertEquals(1L, userActual.getId());
+        verify(userRepository, times(1)).findById(userActual.getId());
     }
 
+    @DisplayName("JUnit test for saving User operation")
     @Test
-    void saveUserTest() throws Exception {
-        when(userRepository.save(Mockito.any(User.class)))
-                .thenAnswer(i -> i.getArguments()[0]);
+    void givenUserObject_whenSaved_thenIsPresent() throws Exception {
+        assertThat(userActual).isNotNull();
+        assertThat(userActual.getId()).isEqualTo(1L);
 
-//        assertEquals(u, userService.findAllUsers().get(0));
-//        assertEquals(1L, userService.findAllUsers().get(0).getId());
-//        assertEquals("Aslan", userService.findUserById(1L).getName());
-
-        verify(userRepository, times(1)).save(u);
+        verify(userRepository, times(1)).save(userActual);
     }
 
+    @DisplayName("JUnit test for delete User operation")
     @Test
-    void deleteUserTest() {
+    void givenUserObject_WhenDelete_thenRemoveUser() {
+        userRepository.deleteById(userActual.getId());
+        Optional<User> optionalUser = userRepository.findById(userActual.getId());
 
+        assertThat(optionalUser).isEmpty();
     }
 
+    @DisplayName("JUnit test for updating User operation")
     @Test
-    void updateUserTest() {
+    void givenUserObject_whenUpdate_thenReturnUpdatedUser() {
+
+        when(userRepository.save(userActual)).thenReturn(userActual);
+        userActual.setId(4L);
+        userActual.setName("Valakas");
+        User updatedUser = userRepository.save(userActual);
+
+        assertThat(updatedUser.getName()).isEqualTo("Valakas");
+        assertThat(updatedUser.getId()).isEqualTo(4L);
     }
 }

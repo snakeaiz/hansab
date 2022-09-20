@@ -3,7 +3,6 @@ package it.hansab.ee.app.service;
 import it.hansab.ee.app.model.User;
 import it.hansab.ee.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

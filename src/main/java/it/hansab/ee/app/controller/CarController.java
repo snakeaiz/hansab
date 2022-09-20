@@ -19,12 +19,12 @@ public class CarController {
 
     @GetMapping("/cars")
     public List<Car> getAllCars(){
-        return carService.getCars();
+        return carService.findAllCars();
     }
 
     @GetMapping("/cars/{id}")
-    public Car getCarById(@PathVariable Long id){
-        return carService.getCarById(id).get();
+    public Car getCarById(@PathVariable Long id) throws Exception {
+        return carService.findCarById(id);
     }
 
     @PostMapping(value = "/cars", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

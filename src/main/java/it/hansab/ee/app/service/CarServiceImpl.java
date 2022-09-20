@@ -15,13 +15,13 @@ public class CarServiceImpl implements CarService{
     CarRepository carRepository;
 
     @Override
-    public List<Car> getCars(){
+    public List<Car> findAllCars(){
         return carRepository.findAll();
     }
 
     @Override
-    public Optional<Car> getCarById(Long id){
-        return carRepository.findById(id);
+    public Car findCarById(Long id) throws Exception {
+        return carRepository.findById(id).orElseThrow(Exception::new);
     }
 
     @Override
