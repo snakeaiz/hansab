@@ -86,7 +86,6 @@ findByName={variable} - for Users
 <==================== H2 Database =======================================>
 
 Data is being presented from static variables
-Database is being initialized on the program start from schema.sql file
 
 <============================== Unit Tests =============================>
 
