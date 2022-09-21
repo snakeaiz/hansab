@@ -39,6 +39,7 @@ Added "Add user" button functionality
 Added "Delete user" button functionality
 Added "Edit user" button functionality
 Added sorting by Ascending/Descending based on User ID
+Added searching by Firstname
 
 !!! Sometimes buttons does not refresh the page and redirect automatically so have to F5 it manually after some action !!!
 
