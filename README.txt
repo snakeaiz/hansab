@@ -3,6 +3,7 @@
 made by Pavel Sulga (21.09.2022)
 email: pavelaizen@gmail.com
 linkedin: https://www.linkedin.com/in/psulga/
+front-end part: https://github.com/snakeaiz/hansab-front
 goal: demonstrate technical skills and approach while completing assignment
 
 <======== Set up ===========>
