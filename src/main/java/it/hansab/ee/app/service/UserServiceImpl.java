@@ -3,6 +3,8 @@ package it.hansab.ee.app.service;
 import it.hansab.ee.app.model.User;
 import it.hansab.ee.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,14 +27,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user){
-        return userRepository.save(user);
+    public void save(User user){
+        userRepository.save(user);
     }
 
     @Override
     public User delete(Long id){
         userRepository.deleteById(id);
         return null;
+    }
+
+    @Override
+    public Page<User> findByName(String name, int page, int size){
+        PageRequest pageable = PageRequest.of(page, size);
+        return userRepository.findByName(name, (org.springframework.data.domain.Pageable) pageable);
     }
 
     @Override

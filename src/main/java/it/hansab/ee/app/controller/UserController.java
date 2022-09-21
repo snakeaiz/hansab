@@ -3,9 +3,8 @@ package it.hansab.ee.app.controller;
 import it.hansab.ee.app.model.User;
 import it.hansab.ee.app.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +17,15 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public List<User> getAllCars(){
+    public List<User> getAllUsers(){
         return userService.findAllUsers();
+    }
+
+    @GetMapping("/filteredUsers")
+    public Page<User> getUsersAsDataList(@RequestParam(defaultValue = "") String firstNameFilter,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "30") int size){
+        return userService.findByName(firstNameFilter, page, size);
     }
 
     @GetMapping("/users/{id}")
@@ -28,13 +34,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createUser(@RequestBody User user) throws Exception {
-        User u = userService.save(user);
-        if (u == null){
-            throw new Exception();
-        } else {
-            return new ResponseEntity<>(user, HttpStatus.CREATED);
-        }
+    public void createUser(@RequestBody User user) throws Exception {
+        userService.save(user);
     }
 
     @DeleteMapping("/users/{id}")

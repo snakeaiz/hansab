@@ -3,6 +3,8 @@ package it.hansab.ee.app.service;
 import it.hansab.ee.app.model.Car;
 import it.hansab.ee.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,12 @@ public class CarServiceImpl implements CarService{
         newCar.setNumberplate(car.getNumberplate());
         newCar.setUser(car.getUser());
         return carRepository.save(newCar);
+    }
+
+    @Override
+    public Page<Car> findByNumberPlate(String numberPlateFilter, int page, int size){
+        PageRequest pageable = PageRequest.of(page, size);
+        return carRepository.findByNumberplate(numberPlateFilter, (org.springframework.data.domain.Pageable) pageable);
     }
 
     @Override
