@@ -72,7 +72,6 @@ by defaault some initial data is being pre-saved into H2 database
 /user/filteredUsers?firstNameFilter=Allik&sort=name&order=desc - Return first page users with names LIKE %Allik%, sorted by name in the descending order
 
 /car/filteredCars?page=0 - Return first(0) page with a capacity of 10 objects
-/car/filteredCars?find=Lambo - Returns all cars with make LIKE %Lambo%
 /car/filteredCars?sort=id&order=asc - Return first page of cars, sorted by Id in the Ascending order
 /car/filteredCars?numberPlateFilter=337AAA - Return car with numberplate LIKE %337AAA%
 
